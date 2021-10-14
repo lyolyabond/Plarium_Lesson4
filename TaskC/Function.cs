@@ -1,63 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 
 namespace TaskC
 {
-    class Program
+    class Function
     {
-        public class Manufacturer
+        public static Classes.Souvenir EnterInformation()
         {
-            public Manufacturer(string manufacturerName, string manufacturerCountry)
-            {
-                ManufacturerName = manufacturerName;
-                ManufacturerCountry = manufacturerCountry;
-            }
-             public string ManufacturerName { get; }
-            public string ManufacturerCountry { get; }
-        }
-        public class Souvenir
-        {
-            Manufacturer manufacturer;
-            
-            public Souvenir(string souvenirName, string manufacturerRequisites, int releaseDate, decimal price, Manufacturer someManufacturer)
-            {
-                SouvenirName = souvenirName;
-                ManufacturerRequisites = manufacturerRequisites;
-                ReleaseDate = releaseDate;
-                Price = price;
-                manufacturer = someManufacturer;
-            }
-            
-            public string Country { get; }
-            public string SouvenirName { get; }
-            public string ManufacturerRequisites { get; }
-            public int ReleaseDate { get; }
-            public decimal Price { get; }
-            public string ManufacturerName
-            {
-                get { return manufacturer.ManufacturerName; }
-            }
-            public string ManufacturerCountry
-            {
-                get { return manufacturer.ManufacturerCountry; }
-            }
-            public void DisplayInformationSouvenir()
-            {
-                Console.WriteLine($"Название сувенира: {SouvenirName}");
-                Console.WriteLine($"Реквизиты производителя(адрес): {ManufacturerRequisites}");
-                Console.WriteLine($"Год выпуска: {ReleaseDate}");
-                Console.WriteLine($"Цена: {Price}");
-                Console.WriteLine("--------------------------");
-            }
-
-            public void DisplayInformationManufacturer()
-            {
-                Console.WriteLine($"Название производителя: {manufacturer.ManufacturerName}");
-                Console.WriteLine($"Страна производителя: {manufacturer.ManufacturerCountry}");
-                Console.WriteLine("--------------------------\n");
-            }
-        }
-        public static Souvenir EnterInformation()
-        {         
             Console.Write("Введите название сувенира: ");
             string souvenirName = Console.ReadLine();
             Console.Write("Введите реквизиты производителя(адрес): ");
@@ -65,7 +16,7 @@ namespace TaskC
 
             Console.Write("Введите год выпуска: ");
             int releaseDate;
-            while (!int.TryParse(Console.ReadLine(), out releaseDate)|| releaseDate>2021)
+            while (!int.TryParse(Console.ReadLine(), out releaseDate) || releaseDate > 2021)
             {
                 Console.Write("Введите год в формате 2021: ");
             }
@@ -80,20 +31,20 @@ namespace TaskC
             Console.Write("Введите страну производителя: ");
             string country = Console.ReadLine();
             Console.WriteLine("--------------------------");
-            Manufacturer manufacturer = new Manufacturer(name, country);
-            Souvenir souvenir = new Souvenir(souvenirName, manufacturerRequisites, releaseDate, price, manufacturer);
+            Classes.Manufacturer manufacturer = new Classes.Manufacturer(name, country);
+            Classes.Souvenir souvenir = new Classes.Souvenir(souvenirName, manufacturerRequisites, releaseDate, price, manufacturer);
             return souvenir;
         }
-        public static Souvenir[] AddingItem()
+        public static Classes.Souvenir[] AddingItem()
         {
             Console.Write("Введите сколько записей о сувенирах вы хотите создать: ");
-            int number; 
-            while(!int.TryParse(Console.ReadLine(), out number))
+            int number;
+            while (!int.TryParse(Console.ReadLine(), out number))
             {
                 Console.Write("Введите целое число! ");
             }
 
-            Souvenir[] arraySouvenir = new Souvenir[number];
+            Classes.Souvenir[] arraySouvenir = new Classes.Souvenir[number];
             for (int i = 0; i < number; i++)
             {
                 Console.WriteLine($"\t{i + 1}-элемент");
@@ -102,7 +53,8 @@ namespace TaskC
             return arraySouvenir;
 
         }
-        public static void DisplayInformationByManufacturer(Souvenir[] arraySouvenir)
+       
+        public static void DisplayInformationByManufacturer(Classes.Souvenir[] arraySouvenir)
         {
             Console.Write("Введите название производителя: ");
             string name = Console.ReadLine();
@@ -122,12 +74,12 @@ namespace TaskC
                 if (!flag)
                     throw new Exception();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine($"Названия производителя {name} нет в базе!");
             }
         }
-        public static void DisplayInformationByCountry(Souvenir[] arraySouvenir)
+        public static void DisplayInformationByCountry(Classes.Souvenir[] arraySouvenir)
         {
             Console.Write("Введите название страны: ");
             string country = Console.ReadLine();
@@ -150,10 +102,10 @@ namespace TaskC
             {
                 Console.WriteLine($"Названия страны {country} нет в базе!");
             }
-            
+
         }
 
-        public static void DisplayInformationByPrice(Souvenir[] arraySouvenir)
+        public static void DisplayInformationByPrice(Classes.Souvenir[] arraySouvenir)
         {
             Console.Write("Введите цену: ");
             decimal price;
@@ -180,9 +132,9 @@ namespace TaskC
             {
                 Console.WriteLine($"Сувенира с ценой, меньше чем {price} нет в базе!");
             }
-            
+
         }
-        public static void DisplayInformationByDate(Souvenir[] arraySouvenir)
+        public static void DisplayInformationByDate(Classes.Souvenir[] arraySouvenir)
         {
             Console.Write("Введите название сувенира: ");
             string souvenirName = Console.ReadLine();
@@ -211,9 +163,9 @@ namespace TaskC
             {
                 Console.WriteLine($"Сувенира с  названием {souvenirName} и датой выпуска {releaseDate} нет в базе!");
             }
-            
+
         }
-        public static void DeleteItemByManufacturer(ref Souvenir[] arraySouvenir)
+        public static void DeleteItemByManufacturer(ref Classes.Souvenir[] arraySouvenir)
         {
             Console.Write("Введите название производителя: ");
             string name = Console.ReadLine();
@@ -237,60 +189,12 @@ namespace TaskC
                     Array.Resize(ref arraySouvenir, arraySouvenir.Length - count);
                     Console.WriteLine("Удаление прошло успешно!");
                 }
-                else throw new Exception(); 
+                else throw new Exception();
             }
             catch (Exception)
             {
                 Console.WriteLine($"Производителя с названием {name} нет в базе!");
             }
-            
-        }
-      
-        static void Main(string[] args)
-        {  
-            Souvenir[] arraySouvenir = AddingItem();
-            int number;
-            do {  Console.WriteLine("\n--Выберите, какое действие хотите совершить--");
-            Console.WriteLine("1 - Вывести информацию о сувенирах заданного производителя " +
-                " \n2 - Вывести информацию о сувенирах, произведенных в заданной стране " +
-                " \n3 - Вывести информацию о производителях, чьи цены на сувениры меньше заданной " +
-                "\n4 - Вывести информацию о производителях заданного сувенира, произведенного в заданном году " +
-                "\n5 - Удалить заданного производителя и его сувениры \n6 - Вывести информацию о сувенирах " +
-                "\n7 - выйти\n");
-                number = int.Parse(Console.ReadLine());
-           
-            switch (number)
-            {
-                case 1:
-                    DisplayInformationByManufacturer(arraySouvenir);
-                    break;
-                case 2:
-                    DisplayInformationByCountry(arraySouvenir);
-                    break;
-                case 3:
-                    DisplayInformationByPrice(arraySouvenir);
-                    break;
-                case 4:
-                    DisplayInformationByDate(arraySouvenir);
-                    break;
-                case 5:
-                    DeleteItemByManufacturer(ref arraySouvenir);
-                    break;
-                case 6:
-                        if (arraySouvenir.Length > 0)
-                        {
-                            for (int i = 0; i < arraySouvenir.Length; i++)
-                            {
-
-                                arraySouvenir[i].DisplayInformationSouvenir();
-                                arraySouvenir[i].DisplayInformationManufacturer();
-                            }
-                        }
-                        else Console.WriteLine("Нет информации о сувенирах!");
-                    break;
-                default: break;
-            }
-        } while (number != 7); 
 
         }
     }
