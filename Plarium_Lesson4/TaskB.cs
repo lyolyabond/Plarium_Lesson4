@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Plarium_Lesson4
+namespace TaskB
 {
     class TaskB
     {
@@ -71,8 +71,6 @@ namespace Plarium_Lesson4
             FillTupleCircle(out circle1);
             HittingCircle(circle, circle1);
             CrossingCircle(circle, circle1);
-
-         
         }
     }
 }
