@@ -7,6 +7,7 @@ namespace TaskC
 {
     class Classes
     {
+        //Класс производителей сувениров
         public class Manufacturer
         {
             public Manufacturer(string manufacturerName, string manufacturerCountry)
@@ -17,17 +18,21 @@ namespace TaskC
             public string ManufacturerName { get; }
             public string ManufacturerCountry { get; }
         }
+
+        //Класс сувениров
         public class Souvenir
         {
-            Manufacturer manufacturer;
+            //Создание экземляра класса производителей сувениров для примера агрегации
+            Manufacturer _manufacturer;
 
+            //Инициализирующий конструктор
             public Souvenir(string souvenirName, string manufacturerRequisites, int releaseDate, decimal price, Manufacturer someManufacturer)
             {
                 SouvenirName = souvenirName;
                 ManufacturerRequisites = manufacturerRequisites;
                 ReleaseDate = releaseDate;
                 Price = price;
-                manufacturer = someManufacturer;
+                _manufacturer = someManufacturer;
             }
 
             public string Country { get; }
@@ -37,11 +42,11 @@ namespace TaskC
             public decimal Price { get; }
             public string ManufacturerName
             {
-                get { return manufacturer.ManufacturerName; }
+                get { return _manufacturer.ManufacturerName; }
             }
             public string ManufacturerCountry
             {
-                get { return manufacturer.ManufacturerCountry; }
+                get { return _manufacturer.ManufacturerCountry; }
             }
             public void DisplayInformationSouvenir()
             {
@@ -54,8 +59,8 @@ namespace TaskC
 
             public void DisplayInformationManufacturer()
             {
-                Console.WriteLine($"Название производителя: {manufacturer.ManufacturerName}");
-                Console.WriteLine($"Страна производителя: {manufacturer.ManufacturerCountry}");
+                Console.WriteLine($"Название производителя: {_manufacturer.ManufacturerName}");
+                Console.WriteLine($"Страна производителя: {_manufacturer.ManufacturerCountry}");
                 Console.WriteLine("--------------------------\n");
             }
         }

@@ -6,6 +6,12 @@ namespace TaskB
 {
     class Function
     {
+        //5. Окружность.В сущностях(типах) хранятся координаты центра на плоскости и радиус.
+        //Проверить попадание заданной точки внутрь данной окружности.
+        //Проверить попадание другой окружности внутрь данной.
+        //Проверить пересечение другой окружности с данной.
+
+        //Метод заполнения значениями кортежа окружности
         public static void FillTupleCircle(out (double xCentre, double yCentre, double radius) circle)
         {
             Console.WriteLine("--Введите координаты центра окружности--");
@@ -16,6 +22,8 @@ namespace TaskB
             Console.Write("--Введите радиус окружности: ");
             circle.radius = double.Parse(Console.ReadLine());
         }
+
+        //Метод заполнения значениями кортежа точки
         public static void FillTuplePoint(out (double x, double y) point)
         {
             Console.WriteLine("--Введите координаты точки--");
@@ -24,6 +32,8 @@ namespace TaskB
             Console.Write("\ty: ");
             point.y = double.Parse(Console.ReadLine());
         }
+
+        //Метод проверки попадания точки в окружность
         public static void HittingPoint((double xCentre, double yCentre, double radius) circle, (double x, double y) point)
         {
             if (Math.Pow((point.x - circle.xCentre), 2) + Math.Pow((point.y - circle.yCentre), 2) <= Math.Pow(circle.radius, 2))
@@ -33,12 +43,13 @@ namespace TaskB
             else Console.WriteLine("~Точка не попадает в данную окружность~");
         }
 
+        //Метод вычисления расстояния между уентрами окружностей
         static double Distance((double xCentre, double yCentre, double radius) circle,
                                 (double xCentre, double yCentre, double radius) circle1)
            => Math.Sqrt(Math.Pow((circle1.xCentre - circle.xCentre), 2) + Math.Pow((circle1.yCentre - circle.yCentre), 2));
 
-
-        public  static void HittingCircle((double xCentre, double yCentre, double radius) circle,
+        //Метод проверки попадания окружности в главную окружность
+        public static void HittingCircle((double xCentre, double yCentre, double radius) circle,
                                 (double xCentre, double yCentre, double radius) circle1)
         {
             double distance = Distance(circle, circle1);
@@ -47,6 +58,7 @@ namespace TaskB
             else Console.WriteLine("~Круг не попадает в данную окружность~");
         }
 
+        //Метод проверки пересечения окружностей
         public static void CrossingCircle((double xCentre, double yCentre, double radius) circle,
                                 (double xCentre, double yCentre, double radius) circle1)
         {
