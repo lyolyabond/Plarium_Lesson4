@@ -7,7 +7,7 @@ namespace TaskC
 {
     class Classes
     {
-        //Класс производителей сувениров
+        //Класс производителя сувениров
         public class Manufacturer
         {
             public Manufacturer(string manufacturerName, string manufacturerCountry)
@@ -19,10 +19,10 @@ namespace TaskC
             public string ManufacturerCountry { get; }
         }
 
-        //Класс сувениров
+        //Класс сувенира
         public class Souvenir
         {
-            //Создание экземляра класса производителей сувениров для примера агрегации
+            //Создание экземляра класса производителя сувениров для примера агрегации
             Manufacturer _manufacturer;
 
             //Инициализирующий конструктор
@@ -34,12 +34,15 @@ namespace TaskC
                 Price = price;
                 _manufacturer = someManufacturer;
             }
+            //Конструктор по умолчанию
+            public Souvenir()
+            { }
 
-            public string Country { get; }
-            public string SouvenirName { get; }
-            public string ManufacturerRequisites { get; }
-            public int ReleaseDate { get; }
-            public decimal Price { get; }
+            public string Country { get; set; }
+            public string SouvenirName { get; set; }
+            public string ManufacturerRequisites { get; set; }
+            public int ReleaseDate { get; set; }
+            public decimal Price { get; set; }
             public string ManufacturerName
             {
                 get { return _manufacturer.ManufacturerName; }
@@ -64,5 +67,6 @@ namespace TaskC
                 Console.WriteLine("--------------------------\n");
             }
         }
+        
     }
 }
