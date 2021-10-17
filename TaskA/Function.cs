@@ -21,23 +21,41 @@ namespace TaskA
 
             //Установка значения позиции курсора в консоле
             int topPositionForKey = Console.CursorTop;
+            int topPositionForStr = 1;
+            int indexOfWord;
+            //Получение значения длины строки консоли
+            int buffW = Console.BufferWidth;
+            int entryException = 0;
             StringBuilder temp = new StringBuilder();
+
             for (int j = 0; j < arrayStr.Length; j++)
             {
                 //Проверка, равно ли слово в массиве заданному(без учёта регистра)
                 if (string.Equals(arrayStr[j], word, StringComparison.OrdinalIgnoreCase))
-                {  //Ожидание нажатия клавиши
+                {
+                    //Ожидание нажатия клавиши
                     Console.ReadKey();
                     //Замена символа на пробел, и возврат в начало строки
-                    Console.Write("\b  \b");
-                   //Установка позиции курсора на начальный индекс нужного слова
-                    Console.SetCursorPosition(str.IndexOf(arrayStr[j], temp.Length), 1);
-                    //Изменение цвета тескта
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    //Выведение слова другим цветом на месте старого
-                    Console.Write(arrayStr[j]);
-                    //Сброс цвета
-                    Console.ResetColor();
+                    Console.Write("\b \b");
+                    indexOfWord = str.IndexOf(arrayStr[j], temp.Length);
+                    try
+                    {
+                        //Проверка, было ли исключение
+                        if(entryException > 0)
+                        {
+                            //Индекс для позиции в консоли меняется
+                            indexOfWord -=  entryException * buffW;
+                        }
+                        SetPosition(indexOfWord, topPositionForStr, word);
+                    }
+                    //Обработка исключения
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        entryException++;
+                        topPositionForStr++;
+                        indexOfWord -= buffW;
+                        SetPosition(indexOfWord, topPositionForStr, word);
+                    }
                 }
                 temp.Append(arrayStr[j] + " ");
                 //Установка позиции курсора в начальную точку
@@ -49,6 +67,18 @@ namespace TaskA
             Console.Write("\b  \b");
             //Возвращение массива слов
             return arrayStr;
+        }
+
+        //Метод для установки курсора в консоли в начале нужного слова
+        static void SetPosition(int indexOfWord, int topPositionForStr, string word)
+        {
+            //Установка позиции курсора на начальный индекс нужного слова
+            Console.SetCursorPosition(indexOfWord, topPositionForStr);
+            Console.ForegroundColor = ConsoleColor.Green;
+            //Выведение слова другим цветом на месте старого
+            Console.Write(word);
+            //Сброс цвета
+            Console.ResetColor();
         }
 
         // Ищет в ней глаголы и возвращает в консоль строку без глаголов.
